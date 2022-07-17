@@ -17,3 +17,5 @@ const userEmailValidateService = async (id: string) => {
 
   return {message: "User email successfullt validated"}
 };
+
+export default userEmailValidateService
