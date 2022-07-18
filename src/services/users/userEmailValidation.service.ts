@@ -1,6 +1,7 @@
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/appError";
+import { checkId } from "../../utils/checkId.utils";
 
 const userEmailValidateService = async (id: string) => {
   const userRepository = AppDataSource.getRepository(User);
