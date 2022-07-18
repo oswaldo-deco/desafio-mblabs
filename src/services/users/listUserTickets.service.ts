@@ -1,6 +1,8 @@
 import { AppDataSource } from "../../data-source";
 import { User_Ticket } from "../../entities/user_tickets.entity";
 import { AppError } from "../../errors/appError";
+import { checkId } from "../../utils/checkId.utils";
+
 
 const listUserTicketsService = async (id: string) => {
     const userTicketsRepository = AppDataSource.getRepository(User_Ticket);

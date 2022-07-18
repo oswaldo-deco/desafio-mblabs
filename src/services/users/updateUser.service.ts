@@ -3,6 +3,7 @@ import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/appError";
 import { IUpdatedUser } from "../../interfaces/users";
 import bcrypt from "bcrypt";
+import { checkId } from "../../utils/checkId.utils";
 
 const updateUserService = async ({
   id,
