@@ -15,3 +15,10 @@ export interface ITicketUpdate {
   price: number;
   observations: string;
 }
+
+export interface ITicketEventCreate {
+  event_id: string;
+  type: string;
+  price: number;
+  observations: string;
+}

@@ -4,6 +4,7 @@ import { AppDataSource } from "../../data-source";
 import { AppError } from "../../errors/appError";
 import { IEventCreate } from "../../interfaces/events";
 import { Partner } from "../../entities/partner.entity";
+import { checkId } from "../../utils/checkId.utils";
 
 const createEventService = async ({
     name,
@@ -32,6 +33,10 @@ const createEventService = async ({
             select: ["id", "name", "description"],
             where: { id: partner_id },
           });
+
+          if (!checkId(partner,partner_id)) {
+            throw new AppError(404, "Partner not found");
+          }
         event.partners.push(partner[0])
     })
     const ticketsArray:Ticket[] = []
