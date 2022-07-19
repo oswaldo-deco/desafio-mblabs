@@ -12,7 +12,7 @@ const listEventService = async (id: string) => {
     throw new AppError(404, "Event not found");
   }
 
-  return eventRepository
+  return await eventRepository
     .createQueryBuilder("event")
     .leftJoinAndSelect("ticket.eventId", "ticket")
     .select([
@@ -26,7 +26,7 @@ const listEventService = async (id: string) => {
         "event.updated_at",
         "ticket"
     ])
-    .where({ id: id }).getOne;
+    .where({ id: id }).getOne();
 };
 
 export default listEventService;
