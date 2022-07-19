@@ -12,7 +12,7 @@ const listUserService = async (id: string) => {
         throw new AppError(404, "User not found")
     }
    
-    return userRepository
+    return await userRepository
       .createQueryBuilder("user")
       .select([
         "user.id",
@@ -23,7 +23,7 @@ const listUserService = async (id: string) => {
         "user.authorized_email"
       ])
       .where({id:id})
-      .getOne
+      .getOne()
   };
   
   export default listUserService;
