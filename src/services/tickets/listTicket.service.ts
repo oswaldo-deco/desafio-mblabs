@@ -12,7 +12,7 @@ const listTicketService = async (id:string) => {
         throw new AppError(404, "Ticket not found");
     }
 
-    return ticketRepository
+    return await ticketRepository
     .createQueryBuilder("ticket")
     .leftJoinAndSelect("ticket.eventId", "event")
     .select([
@@ -22,7 +22,7 @@ const listTicketService = async (id:string) => {
       "event.name"
     ])
     .where({id:id})
-    .getOne
+    .getOne()
 }
 
 export default listTicketService

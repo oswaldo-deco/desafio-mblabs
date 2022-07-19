@@ -119,7 +119,7 @@ export default class UsersControllers {
 
   async validateEmail(req: Request, res: Response) {
     try {
-      const id = req.userId;
+      const { id } = req.params;
 
       const validation = userEmailValidateService(id);
 
@@ -133,7 +133,7 @@ export default class UsersControllers {
 
   async delete(req: Request, res: Response) {
     try {
-      const id = req.userId;
+      const { id } = req.params;
 
       const deleteUser = deleteUserService(id);
 
