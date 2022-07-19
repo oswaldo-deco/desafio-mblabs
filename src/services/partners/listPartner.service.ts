@@ -23,7 +23,7 @@ const listPartnerService = async (id: string) => {
       "partner.updated_at",
       "partner.active",
     ])
-    .where({ id: id }).getOne;
+    .where({ id: id }).getOne();
 };
 
 export default listPartnerService;
