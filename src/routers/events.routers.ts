@@ -9,6 +9,7 @@ const eventsController = new EventsControllers()
 
 const eventsRouters = Router()
 
+eventsRouters.get("/search/:search", eventsController.search)
 eventsRouters.get("", eventsController.listAll)
 eventsRouters.get("/:id", eventsController.listById)
 eventsRouters.use(authToken)

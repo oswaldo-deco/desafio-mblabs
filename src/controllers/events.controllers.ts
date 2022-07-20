@@ -8,6 +8,7 @@ import listEventService from "../services/events/listEvent.service";
 import updateEventService from "../services/events/updateEvent.service";
 import deleteEventService from "../services/events/deleteEvent.service";
 import createEventTicketService from "../services/events/createEventTicket.service";
+import searchEventsService from "../services/events/searchEvent.servie";
 
 export default class EventsControllers {
   async create(req: Request, res: Response) {
@@ -123,4 +124,17 @@ export default class EventsControllers {
       }
     }
   }
+
+  async search(req: Request, res: Response) {
+    try {
+      const {search} = req.params
+
+      const events = await searchEventsService(search)
+
+      return res.status(200).send(events);
+    }catch (error) {
+      if (error instanceof AppError) {
+        handleError(error, res);
+      }
+    } }
 }
