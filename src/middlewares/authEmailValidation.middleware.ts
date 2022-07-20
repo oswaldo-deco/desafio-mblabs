@@ -18,7 +18,7 @@ export const authEmailValidation = async (
 
     const userRepository = AppDataSource.getRepository(User);
     const users = await userRepository.find();
-
+    
     jwt.verify(
       token as string,
       process.env.JWT_SECRET as string,
@@ -31,10 +31,11 @@ export const authEmailValidation = async (
         }
         const userFound = users.find(
           (user) => user.email === decoded.email && user.id === id
-        );
-        if (userFound) {
-          return next();
-        }
+          );
+          if (userFound) {
+            return next();
+          }
+          
         throw new AppError(401, "Invalid token");
       }
     );

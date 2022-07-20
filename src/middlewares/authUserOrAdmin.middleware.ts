@@ -15,15 +15,19 @@ export const authUserOrAdmin = async (
     const users = await userRepository.find();
 
     const user = users.find((user) => user.id === user_id);
-
+    if (!user?.authorized_email){
+        throw new AppError(401, "Your email wasn't validated");
+    }
     if (user?.is_admin) {
-      return next();
+        return next();
     }
 
+    console.log(request.body)
+    
     if (user_id === id) {
-      next();
+        return next();
     } else {
-      throw new AppError(401, "Unauthorised access");
+        throw new AppError(401, "Unauthorized access");
     }
   } catch (error) {
     if (error instanceof AppError) {

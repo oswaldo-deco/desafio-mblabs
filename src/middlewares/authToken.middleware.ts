@@ -12,6 +12,7 @@ export const authToken = async (
     const userRepository = AppDataSource.getRepository(User);
     const users = await userRepository.find();
     const token = request.headers.authorization;
+    
     if (!token) {
       throw new AppError(401, "Missing authorization token");
     }
