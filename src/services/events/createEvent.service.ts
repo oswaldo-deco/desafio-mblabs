@@ -42,12 +42,16 @@ const createEventService = async ({
     console.log("oi") 
     const ticketsRepository = AppDataSource.getRepository(Ticket)
     tickets.forEach(async(ticket)=>{
+        if (!ticket.type || !ticket.price || !ticket.observations || !ticket.amount) {
+            throw new AppError(422, "Missing data for event creation");
+        }
         const newTicket = new Ticket()
         newTicket.type = ticket.type
         newTicket.price = ticket.price
         newTicket.observations = ticket.observations
+        newTicket.amount = ticket.amount
         newTicket.event = event
-        ticketsArray.push({...newTicket, event:true})
+        ticketsArray.push({...newTicket, event:null})
         ticketsRepository.create(newTicket)
         await ticketsRepository.save(newTicket)
     })

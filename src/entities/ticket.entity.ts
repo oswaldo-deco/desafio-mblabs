@@ -29,9 +29,10 @@ export class Ticket{
     amount: number
 
     @Column({
-        nullable:true
+        nullable:true,
+        default: 0
     })
-    amount_left: number
+    amount_bought: number
 
     @OneToMany(type => User_Ticket, user_ticket=>user_ticket.ticket, {eager:true})
     user_tickets: User_Ticket[]

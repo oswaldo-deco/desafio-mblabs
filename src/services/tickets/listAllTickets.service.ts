@@ -13,6 +13,8 @@ const listAllTicketsService = async () => {
       "ticket.type",
       "ticket.price",
       "ticket.observations",
+      "ticket.amount",
+      "ticket.amount_bought",
       "event.name"
     ])
     .getMany()

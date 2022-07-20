@@ -27,7 +27,9 @@ const ticketBuyService = async ({
 
     const user = users.find((user) => user.id === user_id)
     const ticket = tickets.find((ticket)=>ticket.id==ticket_id)
-
+    if(ticket!.amount<=ticket!.amount_bought){
+        throw new AppError(406, "Ticket was sold out");
+    }
     const userTicket = new User_Ticket()
     userTicket.ticket = ticket!
     userTicket.user = user!
@@ -35,6 +37,10 @@ const ticketBuyService = async ({
 
     userTicketsRepository.create(userTicket)
     await userTicketsRepository.save(userTicket)
+
+    await ticketsRepository.update(ticket!.id,{
+        amount_bought: ticket!.amount_bought + 1
+    })
 
     return userTicket
 }
