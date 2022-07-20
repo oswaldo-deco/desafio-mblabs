@@ -8,10 +8,10 @@ export class User_Ticket{
     @PrimaryColumn("uuid")
     readonly id:string;
 
-    @ManyToOne(type=>User, user => user.user_tickets)
+    @ManyToOne(type=>User, user => user.user_tickets,{onDelete: "CASCADE"})
     user: User
 
-    @ManyToOne(type=>Ticket, ticket => ticket.user_tickets)
+    @ManyToOne(type=>Ticket, ticket => ticket.user_tickets,{onDelete: "CASCADE"})
     ticket:Ticket
 
     @CreateDateColumn()

@@ -23,10 +23,20 @@ export class Ticket{
     })
     observations: string
 
+    @Column({
+        nullable:true
+    })
+    amount: number
+
+    @Column({
+        nullable:true
+    })
+    amount_left: number
+
     @OneToMany(type => User_Ticket, user_ticket=>user_ticket.ticket, {eager:true})
     user_tickets: User_Ticket[]
 
-    @ManyToOne(type=>Event, event => event.tickets)
+    @ManyToOne(type=>Event, event => event.tickets, {onDelete: "CASCADE"})
     event:Event
 
     constructor() {

@@ -28,13 +28,10 @@ const createEventService = async ({
     event.partners = []
     
     const partnerRepository = AppDataSource.getRepository(Partner)
-    partners.forEach(async(partner_id) => {
-        const partner = await partnerRepository.find({
-            select: ["id", "name", "description"],
-            where: { id: partner_id },
-          });
-
-          if (!checkId(partner,partner_id)) {
+    const partner = await partnerRepository.find();
+    partners.forEach((partner_id) => {
+        if (!checkId(partner,partner_id)) {
+              console.log("oi")
             throw new AppError(404, "Partner not found");
           }
         event.partners.push(partner[0])
