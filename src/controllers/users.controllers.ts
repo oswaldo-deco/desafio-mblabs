@@ -72,6 +72,7 @@ export default class UsersControllers {
 
   async listSelf(req: Request, res: Response) {
     try {
+      
       const id = req.userId;
 
       const user = await listUserService(id);

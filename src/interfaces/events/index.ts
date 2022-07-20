@@ -18,3 +18,8 @@ export interface IEventUpdate {
   adress: string;
   date: Date;
 }
+
+export interface IError {
+  statusCode: number;
+  message: string;
+}
