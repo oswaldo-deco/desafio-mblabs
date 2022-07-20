@@ -24,7 +24,6 @@ export default class TicketsControllers {
   async listById(req: Request, res: Response) {
     try {
       const { id } = req.params;
-
       const ticket = await listTicketService(id);
 
       return res.status(200).send(ticket);

@@ -86,7 +86,8 @@ export default class UsersControllers {
 
   async listTickets(req: Request, res: Response) {
     try {
-      const id = req.userId;
+      const {id} = req.params;
+      
 
       const user = await listUserTicketsService(id);
 
@@ -121,7 +122,7 @@ export default class UsersControllers {
     try {
       const { id } = req.params;
 
-      const validation = userEmailValidateService(id);
+      const validation = await userEmailValidateService(id);
 
       return res.status(201).send(validation);
     } catch (error) {
@@ -135,8 +136,8 @@ export default class UsersControllers {
     try {
       const { id } = req.params;
 
-      const deleteUser = deleteUserService(id);
-
+      const deleteUser = await deleteUserService(id);
+      console.log(deleteUser)
       return res.status(200).send(deleteUser);
     } catch (error) {
       if (error instanceof AppError) {

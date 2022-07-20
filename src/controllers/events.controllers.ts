@@ -106,13 +106,14 @@ export default class EventsControllers {
     try {
       const { id } = req.params;
 
-      const { type, price, observations } = req.body;
+      const { type, price, observations, amount } = req.body;
 
       const ticket = await createEventTicketService({
         event_id:id,
         type,
         price,
         observations,
+        amount
       });
 
       return res.status(200).send(ticket);

@@ -10,6 +10,7 @@ const createEventTicketService = async({
   type,
   price,
   observations,
+  amount
 }: ITicketEventCreate) => {
     const ticketsRepository = AppDataSource.getRepository(Ticket)
     const eventRepository = AppDataSource.getRepository(Event)
@@ -24,11 +25,17 @@ const createEventTicketService = async({
         where: { id: event_id },
       });
 
+      if (!type || !price || !observations || !amount) {
+        throw new AppError(422, "Missing data for event creation");
+    }
+
     const ticket = new Ticket()
     ticket.type = type
     ticket.price = price
     ticket.observations = observations
+    ticket.amount = amount
     ticket.event = event[0]
+    
 
     ticketsRepository.create(ticket)
      await ticketsRepository.save(ticket)

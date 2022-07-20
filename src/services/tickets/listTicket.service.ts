@@ -4,6 +4,7 @@ import { AppError } from "../../errors/appError";
 import { checkId } from "../../utils/checkId.utils";
 
 const listTicketService = async (id:string) => {
+
     const ticketRepository = AppDataSource.getRepository(Ticket)
 
     const tickets = await ticketRepository.find()
@@ -11,17 +12,20 @@ const listTicketService = async (id:string) => {
     if (!checkId(tickets,id)) {
         throw new AppError(404, "Ticket not found");
     }
-
+   
     return await ticketRepository
     .createQueryBuilder("ticket")
-    .leftJoinAndSelect("ticket.eventId", "event")
+    .leftJoinAndSelect("ticket.event", "event")
     .select([
       "ticket.id",
-      "ticket.name",
-      "ticket.created_at",
+      "ticket.type",
+      "ticket.price",
+      "ticket.observations",
+      "ticket.amount",
+      "ticket.amount_bought",
       "event.name"
     ])
-    .where({id:id})
+    .where("ticket.id = :id", {id:id})
     .getOne()
 }
 

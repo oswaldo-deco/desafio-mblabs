@@ -14,7 +14,7 @@ const listEventService = async (id: string) => {
 
   return await eventRepository
     .createQueryBuilder("event")
-    .leftJoinAndSelect("ticket.eventId", "ticket")
+    .leftJoinAndSelect("event.tickets", "ticket")
     .select([
         "event.id",
         "event.name",

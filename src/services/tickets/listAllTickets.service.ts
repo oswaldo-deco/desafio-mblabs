@@ -7,11 +7,14 @@ const listAllTicketsService = async () => {
 
   return ticketRepository
     .createQueryBuilder("ticket")
-    .leftJoinAndSelect("ticket.eventId", "ticket")
+    .leftJoinAndSelect("ticket.event", "event")
     .select([
       "ticket.id",
-      "ticket.name",
-      "ticket.created_at",
+      "ticket.type",
+      "ticket.price",
+      "ticket.observations",
+      "ticket.amount",
+      "ticket.amount_bought",
       "event.name"
     ])
     .getMany()

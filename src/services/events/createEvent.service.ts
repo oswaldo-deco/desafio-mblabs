@@ -28,28 +28,30 @@ const createEventService = async ({
     event.partners = []
     
     const partnerRepository = AppDataSource.getRepository(Partner)
-    partners.forEach(async(partner_id) => {
-        const partner = await partnerRepository.find({
-            select: ["id", "name", "description"],
-            where: { id: partner_id },
-          });
-
-          if (!checkId(partner,partner_id)) {
+    const partner = await partnerRepository.find();
+    partners.forEach((partner_id) => {
+        if (!checkId(partner,partner_id)) {
+              console.log("oi")
             throw new AppError(404, "Partner not found");
           }
         event.partners.push(partner[0])
     })
-    const ticketsArray:Ticket[] = []
+    const ticketsArray:any[] = []
     eventRepository.create(event)
     await eventRepository.save(event)
+    console.log("oi") 
     const ticketsRepository = AppDataSource.getRepository(Ticket)
     tickets.forEach(async(ticket)=>{
+        if (!ticket.type || !ticket.price || !ticket.observations || !ticket.amount) {
+            throw new AppError(422, "Missing data for event creation");
+        }
         const newTicket = new Ticket()
         newTicket.type = ticket.type
         newTicket.price = ticket.price
         newTicket.observations = ticket.observations
+        newTicket.amount = ticket.amount
         newTicket.event = event
-        ticketsArray.push(newTicket)
+        ticketsArray.push({...newTicket, event:null})
         ticketsRepository.create(newTicket)
         await ticketsRepository.save(newTicket)
     })

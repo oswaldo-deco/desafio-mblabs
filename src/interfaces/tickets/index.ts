@@ -2,6 +2,7 @@ export interface ITicketCreate {
   type: string;
   price: number;
   observations: string;
+  amount:number
 }
 
 export interface ITicketBuy {
@@ -21,4 +22,5 @@ export interface ITicketEventCreate {
   type: string;
   price: number;
   observations: string;
+  amount: number
 }
