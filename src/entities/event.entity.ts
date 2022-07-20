@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { Partner } from "./partner.entity";
 import { Ticket } from "./ticket.entity";
-
+import { v4 as uuid } from "uuid";
 
 @Entity()
 export class Event{
@@ -34,4 +34,10 @@ export class Event{
 
     @ManyToMany(type=> Partner, {eager: true})@JoinTable()
     partners: Partner[]
+
+    constructor() {
+        if (!this.id) {
+          this.id = uuid();
+        }
+    }
 }

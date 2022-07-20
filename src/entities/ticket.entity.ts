@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
 import { User_Ticket } from "./user_tickets.entity";
 import { Event } from "./event.entity";
-
+import { v4 as uuid } from "uuid";
 
 @Entity()
 export class Ticket{
@@ -28,4 +28,10 @@ export class Ticket{
 
     @ManyToOne(type=>Event, event => event.tickets)
     event:Event
+
+    constructor() {
+        if (!this.id) {
+          this.id = uuid();
+        }
+    }
 }

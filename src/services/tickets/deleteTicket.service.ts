@@ -7,8 +7,8 @@ const deleteTicketService = async (id:string) => {
     const ticketRepository = AppDataSource.getRepository(Ticket)
 
     const tickets = await ticketRepository.find()
-
     if (!checkId(tickets,id)) {
+        
         throw new AppError(404, "Ticket not found");
     }
 

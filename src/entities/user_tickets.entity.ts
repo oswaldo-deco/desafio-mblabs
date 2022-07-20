@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import { User } from "./user.entity";
 import { Ticket } from "./ticket.entity";
-
+import { v4 as uuid } from "uuid";
 
 @Entity()
 export class User_Ticket{
@@ -19,4 +19,10 @@ export class User_Ticket{
 
     @Column()
     price_paid:number
+
+    constructor() {
+        if (!this.id) {
+          this.id = uuid();
+        }
+    }
 }

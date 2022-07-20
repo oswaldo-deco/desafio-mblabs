@@ -8,7 +8,7 @@ const createPartnerService = async ({
   description,
   logo,
 }: IPartnerCreate) => {
-  if (!name || !description) {
+  if (!name || !description || !logo) {
     throw new AppError(422, "Missing name or description");
   }
 

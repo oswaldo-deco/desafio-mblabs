@@ -39,9 +39,10 @@ const createEventService = async ({
           }
         event.partners.push(partner[0])
     })
-    const ticketsArray:Ticket[] = []
+    const ticketsArray:any[] = []
     eventRepository.create(event)
     await eventRepository.save(event)
+    console.log("oi") 
     const ticketsRepository = AppDataSource.getRepository(Ticket)
     tickets.forEach(async(ticket)=>{
         const newTicket = new Ticket()
@@ -49,7 +50,7 @@ const createEventService = async ({
         newTicket.price = ticket.price
         newTicket.observations = ticket.observations
         newTicket.event = event
-        ticketsArray.push(newTicket)
+        ticketsArray.push({...newTicket, event:true})
         ticketsRepository.create(newTicket)
         await ticketsRepository.save(newTicket)
     })
